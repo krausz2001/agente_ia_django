@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>IA OLIMPO RE</title>
+    <style>
+        body {
+            background-color: #0F0F1C; /* azul escuro puxado para preto */
+            color: #FFFFFF;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background-color: #0F0F1C;
+            padding: 20px;
+        }
+
+        .logo {
+            max-height: 80px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #D4AF37; /* dourado inspirado no ícone da imagem */
+        }
+
+        form {
+            margin: 40px auto;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #1C1C2E;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            resize: none;
+            font-size: 16px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #D4AF37;
+            color: #0F0F1C;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #b9972d;
+        }
+
+        .resposta {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #2C2C3D;
+            border-left: 4px solid #D4AF37;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="{% static 'agente/img/logo.png' %}" alt="Logo" class="logo">
+        <h1>🪄 Fale com Tey, o agente de IA da Olimpo 🪄</h1>
+    </header>
+
+    <form method="post">
+        {% csrf_token %}
+        <textarea name="pergunta" rows="4" placeholder="Digite sua pergunta..."></textarea><br>
+        <button type="submit">Enviar</button>
+    </form>
+
+    {% if resposta %}
+        <div class="resposta">
+            <h3>Resposta:</h3>
+            <p>{{ resposta }}</p>
+        </div>
+    {% endif %}
+</body>
+</html>
