@@ -6,17 +6,17 @@
     <title>IA OLIMPO RE</title>
     <style>
         body {
-            background-color: #0F0F1C; /* azul escuro puxado para preto */
+            background-color: #0F0F1C;
             color: #FFFFFF;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            text-align: center;
         }
 
         header {
             background-color: #0F0F1C;
             padding: 20px;
+            text-align: center;
         }
 
         .logo {
@@ -25,35 +25,63 @@
         }
 
         h1 {
-            color: #D4AF37; /* dourado inspirado no ícone da imagem */
+            color: #D4AF37;
         }
 
-        form {
-            margin: 40px auto;
-            max-width: 600px;
-            padding: 20px;
+        .chat-container {
+            max-width: 800px;
+            margin: 20px auto;
             background-color: #1C1C2E;
             border-radius: 10px;
+            padding: 20px;
             box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
         }
 
+        .mensagem {
+            margin: 10px 0;
+            padding: 12px 15px;
+            border-radius: 15px;
+            max-width: 70%;
+            clear: both;
+        }
+
+        .usuario {
+            background-color: #2E2E40;
+            text-align: right;
+            float: right;
+            border-top-right-radius: 0;
+        }
+
+        .bot {
+            background-color: #D4AF37;
+            color: #0F0F1C;
+            text-align: left;
+            float: left;
+            border-top-left-radius: 0;
+        }
+
+        form {
+            text-align: center;
+            margin-top: 30px;
+        }
+
         textarea {
-            width: 100%;
+            width: 70%;
             padding: 10px;
-            border: none;
-            border-radius: 5px;
-            resize: none;
             font-size: 16px;
+            border-radius: 8px;
+            border: none;
+            resize: none;
         }
 
         button {
-            margin-top: 10px;
+            margin-left: 10px;
             padding: 10px 20px;
             background-color: #D4AF37;
             color: #0F0F1C;
             font-weight: bold;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
         }
 
@@ -61,15 +89,10 @@
             background-color: #b9972d;
         }
 
-        .resposta {
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #2C2C3D;
-            border-left: 4px solid #D4AF37;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            border-radius: 5px;
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
         }
     </style>
 </head>
@@ -79,17 +102,20 @@
         <h1>🪄 Fale com Tey, o agente de IA da Olimpo 🪄</h1>
     </header>
 
+    <div class="chat-container">
+        {% for troca in conversa %}
+            <div class="mensagem {{ troca.autor }} clearfix">
+                {{ troca.mensagem }}
+            </div>
+        {% empty %}
+            <p style="text-align: center;">Inicie a conversa com Tey!</p>
+        {% endfor %}
+    </div>
+
     <form method="post">
         {% csrf_token %}
-        <textarea name="pergunta" rows="4" placeholder="Digite sua pergunta..."></textarea><br>
+        <textarea name="pergunta" rows="3" placeholder="Digite sua pergunta..."></textarea>
         <button type="submit">Enviar</button>
     </form>
-
-    {% if resposta %}
-        <div class="resposta">
-            <h3>Resposta:</h3>
-            <p>{{ resposta }}</p>
-        </div>
-    {% endif %}
 </body>
 </html>
