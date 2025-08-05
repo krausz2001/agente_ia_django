@@ -1,1 +1,1 @@
-Agente de IA para imobiliária.
+Agente de IA para contrução civil.
